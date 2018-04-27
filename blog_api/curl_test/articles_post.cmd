@@ -1,0 +1,1 @@
+D:\curl\AMD64\curl -H "Content-Type: application/json" -H "Accept: application/json"  -X POST   --data-binary @%1 http://localhost:3000/articles/ 

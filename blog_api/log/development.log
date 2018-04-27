@@ -1,0 +1,406 @@
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (425.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (49.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateArticles (20180427173802)
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "articles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "text" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180427173802"]]
+  [1m[35m (47.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateComments (20180427173835)
+  [1m[35m (1.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "commenter" varchar, "body" text, "article_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_3bf61a60d3"
+FOREIGN KEY ("article_id")
+  REFERENCES "articles" ("id")
+)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE  INDEX "index_comments_on_article_id" ON "comments" ("article_id")[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20180427173835"]]
+  [1m[35m (105.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2018-04-27 17:39:06.400322"], ["updated_at", "2018-04-27 17:39:06.400322"]]
+  [1m[35m (46.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.0ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_comments_on_article_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_comments_on_article_id' AND type='index'
+[0m
+Started GET "/" for 127.0.0.1 at 2018-04-27 19:58:20 +0200
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as */*
+  Rendering D:/RailsInstaller/Ruby2.3.3/lib/ruby/gems/2.3.0/gems/railties-5.1.6/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered D:/RailsInstaller/Ruby2.3.3/lib/ruby/gems/2.3.0/gems/railties-5.1.6/lib/rails/templates/rails/welcome/index.html.erb (11.0ms)
+Completed 200 OK in 295ms (Views: 156.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/articles" for 127.0.0.1 at 2018-04-27 19:59:07 +0200
+Processing by ArticlesController#index as */*
+  [1m[36mArticle Load (0.0ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.0ms)
+Completed 200 OK in 117ms (Views: 97.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/articles" for 127.0.0.1 at 2018-04-27 19:59:16 +0200
+Processing by ArticlesController#index as */*
+  [1m[36mArticle Load (1.0ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.0ms)
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/articles/" for 127.0.0.1 at 2018-04-27 20:08:26 +0200
+Processing by ArticlesController#index as JSON
+  Parameters: {"article"=>{}}
+  [1m[36mArticle Load (1.0ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.0ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/articles//" for 127.0.0.1 at 2018-04-27 20:24:35 +0200
+Processing by ArticlesController#create as JSON
+  Parameters: {"article"=>{"title"=>"Primer artículo", "text"=>"Este es mi primer artículo"}}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (2.0ms)[0m  [1m[32mINSERT INTO "articles" ("title", "text", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Primer artículo"], ["text", "Este es mi primer artículo"], ["created_at", "2018-04-27 18:24:36.010447"], ["updated_at", "2018-04-27 18:24:36.010447"]]
+  [1m[35m (85.0ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered ArticleSerializer with ActiveModelSerializers::Adapter::Attributes (2.0ms)
+Completed 201 Created in 183ms (Views: 76.0ms | ActiveRecord: 88.0ms)
+
+
+Started GET "/articles/" for 127.0.0.1 at 2018-04-27 20:28:09 +0200
+Processing by ArticlesController#index as JSON
+  Parameters: {"article"=>{}}
+  [1m[36mArticle Load (1.0ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (1.0ms)
+Completed 200 OK in 9ms (Views: 7.6ms | ActiveRecord: 1.0ms)
+
+
+Started PUT "/articles/1" for 127.0.0.1 at 2018-04-27 20:30:49 +0200
+Processing by ArticlesController#update as JSON
+  Parameters: {"id"=>"1", "article"=>{}}
+  [1m[36mArticle Load (1.0ms)[0m  [1m[34mSELECT  "articles".* FROM "articles" WHERE "articles"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 400 Bad Request in 8ms (ActiveRecord: 1.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: article):
+  
+app/controllers/articles_controller.rb:49:in `article_params'
+app/controllers/articles_controller.rb:29:in `update'
+Started PUT "/articles/1" for 127.0.0.1 at 2018-04-27 20:31:06 +0200
+Processing by ArticlesController#update as JSON
+  Parameters: {"article"=>{"title"=>"Primer artículo editado", "text"=>"Este es mi primer artículo editado"}, "id"=>"1"}
+  [1m[36mArticle Load (1.0ms)[0m  [1m[34mSELECT  "articles".* FROM "articles" WHERE "articles"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[33mUPDATE "articles" SET "title" = ?, "text" = ?, "updated_at" = ? WHERE "articles"."id" = ?[0m  [["title", "Primer artículo editado"], ["text", "Este es mi primer artículo editado"], ["updated_at", "2018-04-27 18:31:06.326771"], ["id", 1]]
+  [1m[35m (62.0ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered ArticleSerializer with ActiveModelSerializers::Adapter::Attributes (1.0ms)
+Completed 200 OK in 74ms (Views: 1.0ms | ActiveRecord: 64.0ms)
+
+
+Started GET "/articles/" for 127.0.0.1 at 2018-04-27 20:31:15 +0200
+Processing by ArticlesController#index as JSON
+  Parameters: {"article"=>{}}
+  [1m[36mArticle Load (0.0ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.0ms)
+Completed 200 OK in 2ms (Views: 2.4ms | ActiveRecord: 0.0ms)
+
+
+Started DELETE "/articles/1" for 127.0.0.1 at 2018-04-27 20:31:52 +0200
+Processing by ArticlesController#destroy as JSON
+  Parameters: {"id"=>"1", "article"=>{}}
+  [1m[36mArticle Load (0.0ms)[0m  [1m[34mSELECT  "articles".* FROM "articles" WHERE "articles"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[31mDELETE FROM "articles" WHERE "articles"."id" = ?[0m  [["id", 1]]
+  [1m[35m (144.0ms)[0m  [1m[36mcommit transaction[0m
+Completed 204 No Content in 153ms (ActiveRecord: 144.0ms)
+
+
+Started GET "/articles/" for 127.0.0.1 at 2018-04-27 20:31:57 +0200
+Processing by ArticlesController#index as JSON
+  Parameters: {"article"=>{}}
+  [1m[36mArticle Load (1.0ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (1.0ms)
+Completed 200 OK in 4ms (Views: 2.4ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/articles/" for 127.0.0.1 at 2018-04-27 20:32:06 +0200
+Processing by ArticlesController#create as JSON
+  Parameters: {"article"=>{"title"=>"Primer artículo editado", "text"=>"Este es mi primer artículo editado"}}
+  [1m[35m (1.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "articles" ("title", "text", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Primer artículo editado"], ["text", "Este es mi primer artículo editado"], ["created_at", "2018-04-27 18:32:07.006242"], ["updated_at", "2018-04-27 18:32:07.006242"]]
+  [1m[35m (147.0ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered ArticleSerializer with ActiveModelSerializers::Adapter::Attributes (1.0ms)
+Completed 201 Created in 159ms (Views: 3.4ms | ActiveRecord: 149.0ms)
+
+
+Started GET "/articles/1/comments/" for 127.0.0.1 at 2018-04-27 20:35:19 +0200
+Processing by CommentsController#index as JSON
+  Parameters: {"article_id"=>"1", "comment"=>{}}
+  [1m[36mComment Load (0.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.0ms)
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/articles/1/comments" for 127.0.0.1 at 2018-04-27 20:36:42 +0200
+Processing by CommentsController#create as JSON
+  Parameters: {"comment"=>{"commenter"=>"Diego", "body"=>"Este comentario pertenece al articulo 1"}, "article_id"=>"1"}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with ActiveModel::Errors (0.0ms)
+Completed 422 Unprocessable Entity in 149ms (Views: 14.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/articles/1/comments" for 127.0.0.1 at 2018-04-27 20:37:03 +0200
+Processing by CommentsController#create as JSON
+  Parameters: {"comment"=>{"commenter"=>"Diego", "body"=>"Este comentario pertenece al articulo 2"}, "article_id"=>"1"}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with ActiveModel::Errors (0.0ms)
+Completed 422 Unprocessable Entity in 4ms (Views: 0.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/articles/1/comments/" for 127.0.0.1 at 2018-04-27 20:37:24 +0200
+Processing by CommentsController#index as JSON
+  Parameters: {"article_id"=>"1", "comment"=>{}}
+  [1m[36mComment Load (0.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.0ms)
+Completed 200 OK in 3ms (Views: 2.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/articles/" for 127.0.0.1 at 2018-04-27 20:37:41 +0200
+Processing by ArticlesController#index as JSON
+  Parameters: {"article"=>{}}
+  [1m[36mArticle Load (1.0ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (1.0ms)
+Completed 200 OK in 6ms (Views: 4.0ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/articles/2/comments" for 127.0.0.1 at 2018-04-27 20:38:18 +0200
+Processing by CommentsController#create as JSON
+  Parameters: {"comment"=>{"commenter"=>"Diego", "body"=>"Este comentario pertenece al articulo 2"}, "article_id"=>"2"}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with ActiveModel::Errors (0.0ms)
+Completed 422 Unprocessable Entity in 5ms (Views: 0.9ms | ActiveRecord: 0.0ms)
+
+
+Started DELETE "/articles/1" for 127.0.0.1 at 2018-04-27 20:41:34 +0200
+Processing by ArticlesController#destroy as JSON
+  Parameters: {"id"=>"1", "article"=>{}}
+  [1m[36mArticle Load (0.0ms)[0m  [1m[34mSELECT  "articles".* FROM "articles" WHERE "articles"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 404 Not Found in 3ms (ActiveRecord: 0.0ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Article with 'id'=1):
+  
+app/controllers/articles_controller.rb:44:in `set_article'
+Started DELETE "/articles/2" for 127.0.0.1 at 2018-04-27 20:41:38 +0200
+Processing by ArticlesController#destroy as JSON
+  Parameters: {"id"=>"2", "article"=>{}}
+  [1m[36mArticle Load (1.0ms)[0m  [1m[34mSELECT  "articles".* FROM "articles" WHERE "articles"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[31mDELETE FROM "articles" WHERE "articles"."id" = ?[0m  [["id", 2]]
+  [1m[35m (60.0ms)[0m  [1m[36mcommit transaction[0m
+Completed 204 No Content in 69ms (ActiveRecord: 62.0ms)
+
+
+Started GET "/articles/" for 127.0.0.1 at 2018-04-27 20:41:46 +0200
+Processing by ArticlesController#index as JSON
+  Parameters: {"article"=>{}}
+  [1m[36mArticle Load (0.0ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.0ms)
+Completed 200 OK in 3ms (Views: 2.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/articles/" for 127.0.0.1 at 2018-04-27 20:42:06 +0200
+Processing by ArticlesController#create as JSON
+  Parameters: {"article"=>{"title"=>"Primer artículo editado", "text"=>"Este es mi primer artículo editado"}}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "articles" ("title", "text", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Primer artículo editado"], ["text", "Este es mi primer artículo editado"], ["created_at", "2018-04-27 18:42:06.368524"], ["updated_at", "2018-04-27 18:42:06.368524"]]
+  [1m[35m (57.0ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered ArticleSerializer with ActiveModelSerializers::Adapter::Attributes (1.0ms)
+Completed 201 Created in 65ms (Views: 1.1ms | ActiveRecord: 58.0ms)
+
+
+Started DELETE "/articles/3" for 127.0.0.1 at 2018-04-27 20:42:12 +0200
+Processing by ArticlesController#destroy as JSON
+  Parameters: {"id"=>"3", "article"=>{}}
+  [1m[36mArticle Load (0.0ms)[0m  [1m[34mSELECT  "articles".* FROM "articles" WHERE "articles"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[31mDELETE FROM "articles" WHERE "articles"."id" = ?[0m  [["id", 3]]
+  [1m[35m (60.0ms)[0m  [1m[36mcommit transaction[0m
+Completed 204 No Content in 69ms (ActiveRecord: 61.0ms)
+
+
+Started GET "/articles/" for 127.0.0.1 at 2018-04-27 20:43:09 +0200
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ArticlesController#index as JSON
+  Parameters: {"article"=>{}}
+  [1m[36mArticle Load (0.0ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.0ms)
+Completed 200 OK in 10ms (Views: 9.4ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/articles/" for 127.0.0.1 at 2018-04-27 20:43:37 +0200
+Processing by ArticlesController#create as JSON
+  Parameters: {"article"=>{"title"=>"Primer artículo editado", "text"=>"Este es mi primer artículo editado"}}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "articles" ("title", "text", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Primer artículo editado"], ["text", "Este es mi primer artículo editado"], ["created_at", "2018-04-27 18:43:37.755751"], ["updated_at", "2018-04-27 18:43:37.755751"]]
+  [1m[35m (62.0ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered ArticleSerializer with ActiveModelSerializers::Adapter::Attributes (2.0ms)
+Completed 201 Created in 107ms (Views: 20.2ms | ActiveRecord: 65.0ms)
+
+
+Started POST "/articles/4/comments" for 127.0.0.1 at 2018-04-27 20:44:24 +0200
+Processing by CommentsController#create as JSON
+  Parameters: {"article"=>{"title"=>"Primer artículo editado", "text"=>"Este es mi primer artículo editado"}, "article_id"=>"4", "comment"=>{}}
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: comment):
+  
+app/controllers/comments_controller.rb:49:in `comment_params'
+app/controllers/comments_controller.rb:18:in `create'
+Started POST "/articles/4/comments" for 127.0.0.1 at 2018-04-27 20:45:52 +0200
+Processing by CommentsController#create as JSON
+  Parameters: {"comment"=>{"commenter"=>"Diego", "body"=>"Este comentario pertenece al articulo 2"}, "article_id"=>"4"}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with ActiveModel::Errors (0.0ms)
+Completed 422 Unprocessable Entity in 54ms (Views: 9.2ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/articles/4/comments" for 127.0.0.1 at 2018-04-27 20:46:04 +0200
+Processing by CommentsController#create as JSON
+  Parameters: {"comment"=>{"commenter"=>"Diego", "body"=>"Este comentario pertenece al articulo 2"}, "article_id"=>"4"}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[31mrollback transaction[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with ActiveModel::Errors (0.0ms)
+Completed 422 Unprocessable Entity in 6ms (Views: 1.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/articles/4/comments" for 127.0.0.1 at 2018-04-27 20:51:26 +0200
+Processing by CommentsController#create as JSON
+  Parameters: {"comment"=>{"commenter"=>"Diego", "body"=>"Este comentario pertenece al articulo 2"}, "article_id"=>"4"}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "comments" ("commenter", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["commenter", "Diego"], ["body", "Este comentario pertenece al articulo 2"], ["created_at", "2018-04-27 18:51:26.824580"], ["updated_at", "2018-04-27 18:51:26.824580"]]
+  [1m[35m (62.0ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered CommentSerializer with ActiveModelSerializers::Adapter::Attributes (33.0ms)
+Completed 201 Created in 220ms (Views: 138.9ms | ActiveRecord: 63.0ms)
+
+
+Started POST "/articles/4/comments" for 127.0.0.1 at 2018-04-27 20:52:02 +0200
+Processing by CommentsController#create as JSON
+  Parameters: {"comment"=>{"commenter"=>"Diego", "body"=>"Este comentario pertenece al articulo 2"}, "article_id"=>"4"}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "comments" ("commenter", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["commenter", "Diego"], ["body", "Este comentario pertenece al articulo 2"], ["created_at", "2018-04-27 18:52:02.101598"], ["updated_at", "2018-04-27 18:52:02.101598"]]
+  [1m[35m (383.0ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered CommentSerializer with ActiveModelSerializers::Adapter::Attributes (0.0ms)
+Completed 201 Created in 394ms (Views: 1.7ms | ActiveRecord: 384.0ms)
+
+
+Started GET "/articles/" for 127.0.0.1 at 2018-04-27 20:52:15 +0200
+Processing by ArticlesController#index as JSON
+  Parameters: {"article"=>{}}
+  [1m[36mArticle Load (0.0ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.0ms)
+Completed 200 OK in 11ms (Views: 10.3ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/articles/4/comments/" for 127.0.0.1 at 2018-04-27 20:52:49 +0200
+Processing by CommentsController#index as JSON
+  Parameters: {"article_id"=>"4", "comment"=>{}}
+  [1m[36mComment Load (1.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (1.0ms)
+Completed 200 OK in 6ms (Views: 4.5ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/comments" for 127.0.0.1 at 2018-04-27 20:53:51 +0200
+Processing by CommentsController#index as JSON
+  Parameters: {"comment"=>{}}
+  [1m[36mComment Load (1.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (1.0ms)
+Completed 200 OK in 6ms (Views: 4.1ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/articles/" for 127.0.0.1 at 2018-04-27 20:55:54 +0200
+Processing by ArticlesController#index as JSON
+  Parameters: {"article"=>{}}
+  [1m[36mArticle Load (0.0ms)[0m  [1m[34mSELECT "articles".* FROM "articles"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.0ms)
+Completed 200 OK in 4ms (Views: 3.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/articles/" for 127.0.0.1 at 2018-04-27 20:57:09 +0200
+Processing by ArticlesController#create as JSON
+  Parameters: {"article"=>{"title"=>"Primer artículo editado", "text"=>"Este es mi primer artículo editado"}}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "articles" ("title", "text", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["title", "Primer artículo editado"], ["text", "Este es mi primer artículo editado"], ["created_at", "2018-04-27 18:57:09.509180"], ["updated_at", "2018-04-27 18:57:09.509180"]]
+  [1m[35m (74.0ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered ArticleSerializer with ActiveModelSerializers::Adapter::Attributes (2.0ms)
+Completed 201 Created in 85ms (Views: 5.9ms | ActiveRecord: 75.0ms)
+
+
+Started POST "/articles/4/comments" for 127.0.0.1 at 2018-04-27 20:58:58 +0200
+Processing by CommentsController#create as JSON
+  Parameters: {"comment"=>{"commenter"=>"Diego", "body"=>"Este comentario pertenece al articulo 5"}, "article_id"=>"4"}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "comments" ("commenter", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["commenter", "Diego"], ["body", "Este comentario pertenece al articulo 5"], ["created_at", "2018-04-27 18:58:58.998443"], ["updated_at", "2018-04-27 18:58:58.998443"]]
+  [1m[35m (133.0ms)[0m  [1m[36mcommit transaction[0m
+[active_model_serializers] Rendered CommentSerializer with ActiveModelSerializers::Adapter::Attributes (1.0ms)
+Completed 201 Created in 146ms (Views: 4.2ms | ActiveRecord: 133.0ms)
+
+
+Started GET "/articles/5/comments" for 127.0.0.1 at 2018-04-27 21:00:28 +0200
+Processing by CommentsController#index as JSON
+  Parameters: {"article_id"=>"5", "comment"=>{}}
+  [1m[36mComment Load (1.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (1.0ms)
+Completed 200 OK in 6ms (Views: 4.3ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/articles/4/comments" for 127.0.0.1 at 2018-04-27 21:01:44 +0200
+Processing by CommentsController#index as JSON
+  Parameters: {"article_id"=>"4", "comment"=>{}}
+  [1m[36mComment Load (0.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (2.0ms)
+Completed 200 OK in 5ms (Views: 4.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/articles/2/comments" for 127.0.0.1 at 2018-04-27 21:01:50 +0200
+Processing by CommentsController#index as JSON
+  Parameters: {"article_id"=>"2", "comment"=>{}}
+  [1m[36mComment Load (1.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (1.0ms)
+Completed 200 OK in 5ms (Views: 3.4ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/articles/2/comments/" for 127.0.0.1 at 2018-04-27 21:03:32 +0200
+Processing by CommentsController#index as JSON
+  Parameters: {"article_id"=>"2", "comment"=>{}}
+  [1m[36mComment Load (0.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (2.0ms)
+Completed 200 OK in 6ms (Views: 6.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/articles/5/comments/" for 127.0.0.1 at 2018-04-27 21:03:46 +0200
+Processing by CommentsController#index as JSON
+  Parameters: {"article_id"=>"5", "comment"=>{}}
+  [1m[36mComment Load (1.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (2.0ms)
+Completed 200 OK in 7ms (Views: 5.4ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/articles/1/comments/" for 127.0.0.1 at 2018-04-27 21:03:57 +0200
+Processing by CommentsController#index as JSON
+  Parameters: {"article_id"=>"1", "comment"=>{}}
+  [1m[36mComment Load (0.0ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (2.0ms)
+Completed 200 OK in 7ms (Views: 6.3ms | ActiveRecord: 0.0ms)
+
+
