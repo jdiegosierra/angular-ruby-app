@@ -3,19 +3,23 @@ class CommentsController < ApplicationController
 
   # GET /comments
   def index
-    @comments = Comment.all
-
-    render json: @comments
+   @article = Article.find(params[:article_id])
+   @comments = @article.comments
+   render json: @comments
   end
 
   # GET /comments/1
   def show
-    render json: @comment
+    @article = Article.find(params[:article_id])
+    @comments = @article.comments.find(params[:id])
+    render json: @comments
   end
 
   # POST /comments
   def create
-    @comment = Comment.new(comment_params)
+    @article = Article.find(params[:article_id])
+    @comment = @article.comments.create(comment_params)
+    #@comment = Comment.new(comment_params)
 
     if @comment.save
       render json: @comment, status: :created, location: @comment
@@ -46,6 +50,7 @@ class CommentsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def comment_params
+      #params.require(:comment).permit(:commenter, :body)
       params.require(:comment).permit(:commenter, :body, :article_id)
     end
 end
