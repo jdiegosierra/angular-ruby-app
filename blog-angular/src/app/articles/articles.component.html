@@ -1,0 +1,60 @@
+<!-- Implementar tabla de forma que si se añadieran nuevos campos no tuviesemos
+    que añadirlos manualmente al programa -->
+<!-- A la hora de subir el proyecto a github como se hace -->
+<p-table [columns]="cols" [value]="articles" [paginator]="true" [rows]="4">
+    <ng-template pTemplate="caption">
+        Lista de artículos
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>Id</th>
+            <th>Título</th>
+            <th>Texto</th>
+            <th>Creado el</th>
+            <th>Actualizado el</th>
+            <th colspan="3">Opciones</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <tr *ngFor="let article of articles"> 
+            <td>{{article.id}}</td>
+            <td>{{article.title}}</td>
+            <td>{{article.text}}</td>
+            <td>{{article.created_at}}</td>
+            <td>{{article.updated_at}}</td>
+            <td 
+                style="text-align:center">
+                <a [routerLink]="['/see', article.id]">
+                    <button 
+                        type="button" pButton icon="fa-eye" label="Ver" >
+                    </button>
+                </a>
+            </td>
+            <td 
+                style="text-align:center">
+                <a routerLink="/edit">
+                    <button type="button" pButton icon="fa-edit" label="Editar"></button>
+                </a>
+            </td>
+            <td 
+                style="text-align:center">
+                <button 
+                    type="button" pButton icon="fa-trash" label="Borrar" (click)="deleteArticle(article.id)">
+                </button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary" let-rowData>
+        <div style="text-align:left">
+            <a routerLink="/create">
+                <button type="button" pButton icon="fa-plus" label="Nuevo artículo"></button>
+            </a>
+        </div>
+    </ng-template>
+</p-table>
+{{title}}
+<button (click)="onClickMe()">Click me!</button>
+
+<p *ngFor="let article of articles">
+{{articles | json}}
+</p>
