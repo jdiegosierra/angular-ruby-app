@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {ArticleDetailService} from './shared/article-detail.service';
+import { ArticleDetailService } from './shared/article-detail.service';
 
 @Component({
   selector: 'app-article-detail',
@@ -14,20 +14,22 @@ export class ArticleDetailComponent implements OnInit {
   private sub: any;
   title = "Lista de artículos"
   articles: any[];
+  comments: any[];
+  items: [{label: 'New', icon: 'fa-plus'},{label: 'Open', icon: 'fa-download'},{label: 'Undo', icon: 'fa-refresh'}]
 
 
-  constructor(private route: ActivatedRoute, private articlesdetailService: ArticleDetailService) {}
+  constructor(private route: ActivatedRoute, private articledetailService: ArticleDetailService) {}
 
   ngOnInit() {
-  	   this.sub = this.route.params.subscribe(params => {
-       this.id = +params['id']; // (+) converts string 'id' to a number
-       // In a real app: dispatch action to load the details here.
-       this.getArticle(this.id)
-    });
+  	  this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id']; // (+) converts string 'id' to a number
+      // In a real app: dispatch action to load the details here.
+      this.getArticle(this.id)
+      })
   }
 
   getArticles() {
-  	this.articlesdetailService.getArticles()
+  	this.articledetailService.getArticles()
         .subscribe(
             data => {
               this.articles = data;
@@ -38,8 +40,20 @@ export class ArticleDetailComponent implements OnInit {
       )
   }
 
+  getComments() {
+    this.articledetailService.getComments(this.id)
+        .subscribe(
+            data => {
+              this.comments = data;
+            },
+            error => {
+              this.comments = [];
+            }
+      )
+  }
+
   deleteArticle(id) {
-    this.articlesdetailService.deleteArticle(id)
+    this.articledetailService.deleteArticle(id)
         .subscribe(
             data => {
               this.getArticles();
@@ -52,7 +66,7 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   getArticle(id) {
-  	this.articlesdetailService.getArticle(id)
+  	this.articledetailService.getArticle(id)
         .subscribe(
             data => {
               this.article = data;

@@ -1,7 +1,19 @@
-<p>
-  article-detail works!
-  {{id}}
-</p>
-<p>
-{{article | json}}
-</p>
+<p-panel>
+    <p-header>
+        <div class="ui-helper-clearfix">
+            <span class="ui-panel-title" style="font-size:20px;display:inline-block;margin-top:2px">{{article.title}}</span>
+        </div>
+    </p-header>
+    	{{article.text}}
+    <p-footer>
+        <button pButton type="button" icon="fa-plus" label="Nuevo comentario" class="ui-button-info"></button>
+        <button pButton type="button" icon="fa-list" label="Comentarios" class="ui-button-success" (click)="getComments()"></button>
+    </p-footer>
+</p-panel>
+<p-panel header="Comentarios">
+        <tr *ngFor="let comment of comments">
+                <p-panel header={{comment.commenter}} [toggleable]="true" [style]="{'margin-bottom':'20px'}">
+                    {{comment.body}}
+                </p-panel>
+        </tr>
+</p-panel>

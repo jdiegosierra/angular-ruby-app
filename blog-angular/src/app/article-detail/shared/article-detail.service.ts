@@ -36,6 +36,24 @@ export class ArticleDetailService {
             }) 
   }
 
+  getComments(id): Observable<any[]> {
+    
+    var headers = this.setHeader();
+    
+    return this.http
+            .get("http://localhost:3000/articles/" + id + "/comments/", {headers:headers})
+            .map((response: Response) => {
+                    if (response.status===200)
+                    {  
+                      return response.json();
+                    }
+                    else
+                    {                    
+                      return [];
+                    }  
+            }) 
+  }
+
   deleteArticle(id):  Observable<Boolean>{
     var headers = this.setHeader();     
 

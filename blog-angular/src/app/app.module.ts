@@ -1,28 +1,36 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { HttpClientModule } from '@angular/common/http'; 
-
+import { HttpClientModule } from '@angular/common/http';
+import { TableModule } from 'primeng/table';
+import { ButtonModule, PasswordModule, DataTableModule ,SharedModule} from 'primeng/primeng';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ColorPickerModule } from 'primeng/colorpicker';
+import { AppRoutingModule } from './/app-routing.module';
+import { EditorModule } from 'primeng/editor';
+import { InputTextModule } from 'primeng/inputtext';
+import { PanelModule } from 'primeng/panel';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 
 import { AppComponent } from './app.component';
+
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticlesService } from './articles/shared/articles.service';
+
+import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { ArticleDetailService } from './article-detail/shared/article-detail.service';
 
-import {TableModule} from 'primeng/table';
-import { DatatableExampleComponent } from './datatable-example/datatable-example.component';
-import {ButtonModule, PasswordModule, DataTableModule ,SharedModule} from 'primeng/primeng';
-import {InputTextareaModule} from 'primeng/inputtextarea';
-import {ColorPickerModule} from 'primeng/colorpicker';
-import { AppRoutingModule } from './/app-routing.module';
-import { ArticleDetailComponent } from './article-detail/article-detail.component';
+import { ArticleNewComponent } from './article-new/article-new.component';
+import { ArticleNewService } from './article-new/shared/article-new.service'
 
 @NgModule({
   declarations: [
     AppComponent,
     ArticlesComponent,
-    DatatableExampleComponent,
-    ArticleDetailComponent
+    ArticleDetailComponent,
+    ArticleNewComponent
   ],
   imports: [
     BrowserModule,
@@ -35,11 +43,18 @@ import { ArticleDetailComponent } from './article-detail/article-detail.componen
     InputTextareaModule,
     ColorPickerModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    EditorModule,
+    FormsModule,
+    InputTextModule,
+    PanelModule,
+    SplitButtonModule,
+    BrowserAnimationsModule
   ],
   providers: [
   	ArticlesService,
-    ArticleDetailService
+    ArticleDetailService,
+    ArticleNewService
   ],
   bootstrap: [AppComponent]
 })

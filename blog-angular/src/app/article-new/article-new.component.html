@@ -1,0 +1,27 @@
+<p-table>
+	<ng-template pTemplate="caption">
+        Nuevo Artículo
+	</ng-template>
+	<ng-template pTemplate="summary">
+        <span class="ui-float-label">
+			<input id="float-input" type="text" size="auto" pInputText placeholder="Título" [(ngModel)]="title"> 
+		</span>
+	</ng-template>
+</p-table>
+
+
+<p-editor [(ngModel)]="text" [style]="{'height':'320px'}"></p-editor>
+<p-table>
+    <ng-template pTemplate="summary" let-rowData>
+		   	  <button 
+	 		    pButton type="button" label="Borrar" icon="fa-close" class="ui-button-danger" (click)="text=null">
+	 		  </button>
+	 		  <a routerLink="/edit">
+		          <button 
+		 		    pButton type="button" (click)="createArticle()" label="Guardar" class="ui-button-success">
+		 		  </button>
+		 	  </a>
+    </ng-template>
+</p-table>
+
+

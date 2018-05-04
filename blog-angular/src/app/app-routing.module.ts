@@ -2,11 +2,13 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ArticlesComponent }      from './articles/articles.component';
 import { ArticleDetailComponent }      from './article-detail/article-detail.component';
+import { ArticleNewComponent } from './article-new/article-new.component';
 
 const routes: Routes = [
-  { path: 'edit', component: ArticlesComponent },
-  { path: 'create', component: ArticlesComponent },
-  { path: 'see/:id', component: ArticleDetailComponent }
+  { path: '', component: ArticlesComponent },
+  { path: 'index', component: ArticlesComponent },
+  { path: 'new', component: ArticleNewComponent },
+  { path: 'show/:id', component: ArticleDetailComponent }
 ];
 
 @NgModule({

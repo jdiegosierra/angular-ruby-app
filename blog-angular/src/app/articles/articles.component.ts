@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ArticlesService} from './shared/articles.service';
+import { ArticlesService } from './shared/articles.service';
 
 @Component({
   selector: 'app-articles',
