@@ -7,14 +7,16 @@ import { ArticleDetailService } from './shared/article-detail.service';
   templateUrl: './article-detail.component.html',
   styleUrls: ['./article-detail.component.css']
 })
+
 export class ArticleDetailComponent implements OnInit {
   article: any[];
   id: number;
   numero: number;
   private sub: any;
-  title = "Lista de artículos"
+  body: string;
   articles: any[];
   comments: any[];
+  commenter: string;
   items: [{label: 'New', icon: 'fa-plus'},{label: 'Open', icon: 'fa-download'},{label: 'Undo', icon: 'fa-refresh'}]
 
 
@@ -75,6 +77,19 @@ export class ArticleDetailComponent implements OnInit {
               this.article = [];
             }
       )
+  }
+
+
+  createComment() {   
+    this.articledetailService.createComment(this.id, this.commenter,this.body)
+        .subscribe(
+            data => {
+                  return true;
+            },
+            error => {                  
+                  return false;
+            }
+        )  
   }
 
 }

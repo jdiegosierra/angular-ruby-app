@@ -26,7 +26,6 @@ export class ArticleNewComponent implements OnInit {
             error => {                  
                   return false;
             }
-        )
-  
-
-}
+        )  
+  }
+}  

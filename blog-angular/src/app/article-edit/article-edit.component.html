@@ -1,20 +1,21 @@
-<a routerLink="">
-  <button pButton type="button" label="Volver" icon="fas fa-undo"></button>
-</a>
-<hr style="border-top:0px;border-color:white">
+<nav>
+  <a routerLink="">
+  	<button pButton type="button" label="Volver" icon="fas fa-undo"></button>
+  </a>
+</nav>
 <p-table>
 	<ng-template pTemplate="caption">
-        Nuevo Artículo
+        Editar Artículo
 	</ng-template>
 	<ng-template pTemplate="summary">
         <span class="ui-float-label">
-			<input id="float-input" type="text" size="auto" pInputText placeholder="Título" [(ngModel)]="title"> 
+			<input id="float-input" type="text" size="auto" pInputText placeholder="Título" [(ngModel)]="article.title"> 
 		</span>
 	</ng-template>
 </p-table>
 
 
-<p-editor [(ngModel)]="text" [style]="{'height':'320px'}"></p-editor>
+<p-editor [(ngModel)]="article.text" [style]="{'height':'320px'}"></p-editor>
 <p-table>
     <ng-template pTemplate="summary" let-rowData>
 		   	  <button 
@@ -22,10 +23,8 @@
 	 		  </button>
 	 		  <a routerLink="">
 		          <button 
-		 		    pButton type="button" (click)="createArticle()" label="Guardar" class="ui-button-success">
+		 		    pButton type="button" (click)="updateArticle()" label="Guardar" class="ui-button-success">
 		 		  </button>
 		 	  </a>
     </ng-template>
 </p-table>
-
-

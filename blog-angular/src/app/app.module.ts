@@ -23,14 +23,18 @@ import { ArticleDetailComponent } from './article-detail/article-detail.componen
 import { ArticleDetailService } from './article-detail/shared/article-detail.service';
 
 import { ArticleNewComponent } from './article-new/article-new.component';
-import { ArticleNewService } from './article-new/shared/article-new.service'
+import { ArticleNewService } from './article-new/shared/article-new.service';
+
+import { ArticleEditComponent } from './article-edit/article-edit.component'
+import { ArticleEditService } from './article-edit/shared/article-edit.service'
 
 @NgModule({
   declarations: [
     AppComponent,
     ArticlesComponent,
     ArticleDetailComponent,
-    ArticleNewComponent
+    ArticleNewComponent,
+    ArticleEditComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +58,8 @@ import { ArticleNewService } from './article-new/shared/article-new.service'
   providers: [
   	ArticlesService,
     ArticleDetailService,
-    ArticleNewService
+    ArticleNewService,
+    ArticleEditService
   ],
   bootstrap: [AppComponent]
 })

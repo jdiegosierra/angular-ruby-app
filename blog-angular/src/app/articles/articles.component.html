@@ -32,15 +32,18 @@
             </td>
             <td 
                 style="text-align:center">
-                <a routerLink="/edit">
-                    <button type="button" pButton icon="fa-edit" label="Editar"></button>
+                <a [routerLink]="['/edit', article.id]">
+                    <button 
+                        type="button" pButton icon="fa-edit" label="Editar">
+                    </button>
                 </a>
             </td>
             <td 
                 style="text-align:center">
                 <button 
-                    type="button" pButton icon="fa-trash" label="Borrar" (click)="deleteArticle(article.id)">
+                    pButton type="button" icon="fa-trash" label="Eliminar" class="ui-button-danger" (click)="deleteArticle(article.id)">  
                 </button>
+
             </td>
         </tr>
     </ng-template>

@@ -88,4 +88,23 @@ export class ArticleDetailService {
                     }  
             }) 
   }
+
+  createComment(id, commenter, body):  Observable<boolean>{
+      var headers = this.setHeader();
+      var obj = { "commenter": commenter, "body": body};
+      var Mobj = JSON.parse(JSON.stringify(obj));
+
+      return this.http
+                .post("http://localhost:3000/articles/" + id + "/comments",{comment: Mobj}, {headers:headers})
+                .map((response: Response) => {
+                      if (response.status===201)
+                      {  
+                        return true;
+                      }
+                      else
+                      {                     
+                        return false;
+                      }  
+                })
+  }
 }
