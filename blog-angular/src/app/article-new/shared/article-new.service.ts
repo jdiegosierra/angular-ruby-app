@@ -14,26 +14,26 @@ export class ArticleNewService {
   setHeader(): Headers{
     var header=new Headers()
     header.append('Content-Type','application/json'); 
-
+    
     return header;
   }
 
   addArticle(text: string, title: string):  Observable<boolean>{
-      var headers = this.setHeader();
-      var obj = { "text": text, "title": title};
-      var Mobj = JSON.parse(JSON.stringify(obj));
+    var headers = this.setHeader();
+    var obj = { "text": text, "title": title};
+    var Mobj = JSON.parse(JSON.stringify(obj));
 
-      return this.http
-                .post("http://localhost:3000/articles/",{article: Mobj}, {headers:headers})
-                .map((response: Response) => {
-                      if (response.status===201)
-                      {  
-                        return true;
-                      }
-                      else
-                      {                     
-                        return false;
-                      }  
-                })
+    return this.http
+      .post("http://localhost:3000/articles/",{article: Mobj}, {headers:headers})
+      .map((response: Response) => {
+        if (response.status===201)
+        {  
+          return true;
+        }
+        else
+        {                     
+          return false;
+        }  
+      })
 	}
 }

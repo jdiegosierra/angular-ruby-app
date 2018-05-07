@@ -16,34 +16,34 @@ export class ArticleEditComponent implements OnInit {
   constructor(private route: ActivatedRoute, private articleeditService: ArticleEditService) {}
 
   ngOnInit() {
-  	  this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id']; // (+) converts string 'id' to a number
-      // In a real app: dispatch action to load the details here.
-      this.getArticle(this.id)
-      })
+	  this.sub = this.route.params.subscribe(params => {
+    this.id = +params['id']; // (+) converts string 'id' to a number
+    // In a real app: dispatch action to load the details here.
+    this.getArticle(this.id)
+    })
   }
 
   getArticle(id) {
   	this.articleeditService.getArticle(id)
-        .subscribe(
-            data => {
-              this.article = data;
-            },
-            error => {
-              this.article = [];
-            }
-      )
+      .subscribe(
+        data => {
+          this.article = data;
+        },
+        error => {
+          this.article = [];
+        }
+    )
   }
 
   updateArticle() {
   	this.articleeditService.updateArticle(this.id, this.article)
-        .subscribe(
-            data => {
-              return true;
-            },
-            error => {
-              return false;
-            }
+      .subscribe(
+        data => {
+          return true;
+        },
+        error => {
+          return false;
+        }
       )
   }
 

@@ -1,7 +1,6 @@
-<!-- Implementar tabla de forma que si se añadieran nuevos campos no tuviesemos
-    que añadirlos manualmente al programa -->
-<!-- A la hora de subir el proyecto a github como se hace -->
-<p-table [columns]="cols" [value]="articles" [paginator]="true" [rows]="4">
+<p-growl [(value)]="msgs"></p-growl>
+
+<p-table [value]="articles" [rows]="4" [paginator]="true">
     <ng-template pTemplate="caption">
         Lista de artículos
     </ng-template>
@@ -19,31 +18,21 @@
         <tr *ngFor="let article of articles"> 
             <td>{{article.id}}</td>
             <td>{{article.title}}</td>
-            <td>{{article.text}}</td>
+            <td [innerHTML]="article.text"></td>
             <td>{{article.created_at}}</td>
             <td>{{article.updated_at}}</td>
-            <td 
-                style="text-align:center">
+            <td style="text-align:center">
                 <a [routerLink]="['/show', article.id]">
-                    <button 
-                        type="button" pButton icon="fa-eye" label="Ver" >
-                    </button>
+                    <button type="button" pButton icon="fa-eye" label="Ver" ></button>
                 </a>
             </td>
-            <td 
-                style="text-align:center">
+            <td style="text-align:center">
                 <a [routerLink]="['/edit', article.id]">
-                    <button 
-                        type="button" pButton icon="fa-edit" label="Editar">
-                    </button>
+                    <button type="button" pButton icon="fa-edit" label="Editar"></button>
                 </a>
             </td>
-            <td 
-                style="text-align:center">
-                <button 
-                    pButton type="button" icon="fa-trash" label="Eliminar" class="ui-button-danger" (click)="deleteArticle(article.id)">  
-                </button>
-
+            <td style="text-align:center">
+                <button pButton type="button" icon="fa-trash" label="Eliminar" class="ui-button-danger" (click)="deleteArticle(article.id)"></button>
             </td>
         </tr>
     </ng-template>

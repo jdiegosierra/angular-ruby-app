@@ -1,8 +1,9 @@
-<nav>
-  <a routerLink="">
-  	<button pButton type="button" label="Volver" icon="fas fa-undo"></button>
-  </a>
-</nav>
+<a routerLink="">
+	<button pButton type="button" label="Volver" icon="fas fa-undo"></button>
+</a>
+
+<hr style="border-top:0px;border-color:white">
+
 <p-table>
 	<ng-template pTemplate="caption">
         Editar Artículo
@@ -14,17 +15,12 @@
 	</ng-template>
 </p-table>
 
-
 <p-editor [(ngModel)]="article.text" [style]="{'height':'320px'}"></p-editor>
 <p-table>
     <ng-template pTemplate="summary" let-rowData>
-		   	  <button 
-	 		    pButton type="button" label="Borrar" icon="fa-close" class="ui-button-danger" (click)="text=null">
-	 		  </button>
+		   	  <button pButton type="button" label="Borrar" icon="fa-close" class="ui-button-danger" (click)="article.text=null"></button>
 	 		  <a routerLink="">
-		          <button 
-		 		    pButton type="button" (click)="updateArticle()" label="Guardar" class="ui-button-success">
-		 		  </button>
+		          <button pButton type="button" (click)="updateArticle()" label="Guardar" class="ui-button-success"></button>
 		 	  </a>
     </ng-template>
 </p-table>

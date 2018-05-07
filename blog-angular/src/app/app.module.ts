@@ -3,16 +3,17 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './/app-routing.module';
 import { TableModule } from 'primeng/table';
-import { ButtonModule, PasswordModule, DataTableModule ,SharedModule} from 'primeng/primeng';
+import { ButtonModule, PasswordModule, DataTableModule, SharedModule} from 'primeng/primeng';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ColorPickerModule } from 'primeng/colorpicker';
-import { AppRoutingModule } from './/app-routing.module';
 import { EditorModule } from 'primeng/editor';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { SplitButtonModule } from 'primeng/splitbutton';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GrowlModule } from 'primeng/growl'; 
 
 import { AppComponent } from './app.component';
 
@@ -53,7 +54,8 @@ import { ArticleEditService } from './article-edit/shared/article-edit.service'
     InputTextModule,
     PanelModule,
     SplitButtonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    GrowlModule
   ],
   providers: [
   	ArticlesService,

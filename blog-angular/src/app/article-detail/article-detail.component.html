@@ -1,7 +1,9 @@
- <a routerLink="">
+<a routerLink="">
     <button pButton type="button" label="Volver" icon="fas fa-undo"></button>
-  </a>
+</a>
+
 <hr style="border-top:0px;border-color:white">
+
 <p-panel>
     <p-header>
         <div class="ui-helper-clearfix">
@@ -10,26 +12,34 @@
             </span>
         </div>
     </p-header>
-    	{{article.text}}
-    <p-footer>
-    </p-footer>
+    <div [innerHTML]="article.text"></div>
 </p-panel>
 
-<input id="float-input" type="text" size="auto" pInputText placeholder="Nombre" [(ngModel)]="commenter">
-<hr style="border-top:100px;border-color:white">
-<p-editor id="float-input" type="text" size="auto" pInputText placeholder="Escribe un comentario..." [(ngModel)]="body">
+<hr style="border-top:10px;border-color:white">
 
-</p-editor>
-        <button pButton type="button" icon="fa-plus" label="Enviar comentario" class="ui-button-success" 
-(click)="createComment()"
+<p-panel>
+    <p-header> <b>Nuevo Comentario </b></p-header>
+    <input id="float-input" type="text" pInputText placeholder="Nombre" [(ngModel)]="commenter">
+    <hr style="border-top:10px;border-color:white">
+    <p-editor [style]="{'height':'320px'}" [(ngModel)]="body"></p-editor>
+    <p-growl [(value)]="msgs"></p-growl>
+    <hr style="border-top:10px;border-color:white">
+    <button pButton type="button" icon="fa-plus" label="Enviar comentario" class="ui-button-success" (click)="createComment()"></button>
+</p-panel>
 
-        ></button>
-<p-panel >
+<hr style="border-top:10px;border-color:white">
+
+<p-panel>
+    <p-header>
         <button pButton type="button" icon="fa-list" label="Mostrar comentarios" class="ui-button-info" (click)="getComments()"></button>
-        <hr style="border-top:0px;border-color:white">
-        <tr *ngFor="let comment of comments">
-                <p-panel header={{comment.commenter}} [toggleable]="true" [style]="{'margin-bottom':'20px'}">
-                    {{comment.body}}
-                </p-panel>
-        </tr>
+    </p-header>
+    <hr style="border-top:0px;border-color:white">
+    <tr *ngFor="let comment of comments">
+        <p-panel header={{comment.commenter}} [toggleable]="true" [style]="{'margin-bottom':'20px'}">        
+            <div [innerHTML]="comment.body"></div>
+            <p-footer>
+                <button pButton type="button" icon="fa-trash" label="Eliminar" class="ui-button-danger" (click)="deleteComment(comment.id)"></button>
+            </p-footer>
+        </p-panel>
+    </tr>
 </p-panel>
