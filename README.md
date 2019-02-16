@@ -1,2 +1,1 @@
-# ruby-app-server
-Servidor creado con Ruby on Rails. Proximamente tutorial en youtube.
+Aplicación creada con Angular y Ruby on Rails
